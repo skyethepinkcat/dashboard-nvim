@@ -481,7 +481,7 @@ local function gen_center(plist, config)
       false
     )[1]
     if text and text:find('%w') then
-      local key = tostring(hotkey())
+      local key = tostring(number_hotkey())
       if config.shortcuts_left_side then
         api.nvim_buf_set_extmark(config.bufnr, ns, first_line + i + plist_len, start_col - 1, {
           virt_text = { { key, 'DashboardShortCut' } },
