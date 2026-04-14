@@ -385,6 +385,10 @@ local function gen_center(plist, config)
   end
 
   local hotkey = gen_hotkey(config)
+  local project_hotkey = hotkey
+  if config.project.shortcut_type ~= nil then
+    project_hotkey = gen_hotkey({shortcut_type = config.project.shortcut_type})
+  end
 
   api.nvim_buf_add_highlight(config.bufnr, 0, 'DashboardProjectTitle', first_line + 1, 0, -1)
   api.nvim_buf_add_highlight(
@@ -415,7 +419,7 @@ local function gen_center(plist, config)
     )
     local text = api.nvim_buf_get_lines(config.bufnr, first_line + i - 1, first_line + i, false)[1]
     if text and text:find('%w') and not text:find('empty') then
-      local key = tostring(hotkey())
+      local key = tostring(project_hotkey())
       if config.shortcuts_left_side then
         api.nvim_buf_set_extmark(config.bufnr, ns, first_line + i - 1, start_col - 1, {
           virt_text = { { key, 'DashboardShortCut' } },
