@@ -386,6 +386,7 @@ local function gen_center(plist, config)
 
   local hotkey = gen_hotkey(config)
   local project_hotkey = hotkey
+  local mru_hotkey = number_hotkey()
   if config.project.shortcut_type ~= nil and config.project.shortcut_type ~= config.shortcut_type then
     if config.project.shortcut_type == 'letter' then
       project_hotkey = letter_hotkey(config)
@@ -481,7 +482,7 @@ local function gen_center(plist, config)
       false
     )[1]
     if text and text:find('%w') then
-      local key = tostring(number_hotkey())
+      local key = tostring(mru_hotkey())
       if config.shortcuts_left_side then
         api.nvim_buf_set_extmark(config.bufnr, ns, first_line + i + plist_len, start_col - 1, {
           virt_text = { { key, 'DashboardShortCut' } },
