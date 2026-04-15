@@ -387,7 +387,9 @@ local function gen_center(plist, config)
   local hotkey = gen_hotkey(config)
   local project_hotkey = hotkey
   local mru_hotkey = number_hotkey()
-  if config.project.shortcut_type ~= nil and config.project.shortcut_type ~= config.shortcut_type then
+  if
+    config.project.shortcut_type ~= nil and config.project.shortcut_type ~= config.shortcut_type
+  then
     if config.project.shortcut_type == 'letter' then
       project_hotkey = letter_hotkey(config)
     end
