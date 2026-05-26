@@ -307,12 +307,14 @@ end
 local function map_key(config, key, content)
   keymap.set('n', key, function()
     local text = content or api.nvim_get_current_line()
-    local scol = utils.is_win and text:find('%w') or text:find('%p')
+    local scol = text:find('%w') or text:find('%p')
     local path = nil
 
     if scol ~= nil then -- scol == nil if pressing enter in empty space
       if text:sub(scol, scol + 1) ~= '~/' then -- is relative path
-        scol = math.min(text:find('%w'), text:find('%p'))
+        if text:find('%p') ~= nil then
+          scol = math.min(text:find('%w'), text:find('%p'))
+        end
       end
       text = text:sub(scol)
       path = text:sub(1, text:find('%w(%s+)$'))
